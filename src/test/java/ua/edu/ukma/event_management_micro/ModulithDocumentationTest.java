@@ -8,7 +8,9 @@ class ModulithDocumentationTest {
 
     @Test
     void writeModuleDocumentation() {
-        ApplicationModules modules = ApplicationModules.of(EventManagementMicroApplication.class);
+        // in-memory representation of the application module arrangement derived from the codebase
+        // verify whether our code arrangement adheres to the intended constraints
+        ApplicationModules modules = ApplicationModules.of(EventManagementMicroApplication.class).verify();
         new Documenter(modules).writeDocumentation();
     }
 }
