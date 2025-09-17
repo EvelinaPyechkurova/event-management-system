@@ -1,4 +1,4 @@
-package ua.edu.ukma.event_management_micro;
+package ua.edu.ukma.event_management_micro; // application module package
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
