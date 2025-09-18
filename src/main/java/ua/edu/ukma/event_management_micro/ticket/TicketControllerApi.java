@@ -29,7 +29,7 @@ public class TicketControllerApi {
 	}
 
 	@PostMapping
-	public ResponseEntity<String> createTicket(TicketDto ticketDto) {
+	public ResponseEntity<String> createTicket(@RequestBody TicketDto ticketDto) {
 		if (ticketService.createTicket(ticketDto)) {
 			return ResponseEntity.ok("Ticket created");
 		}

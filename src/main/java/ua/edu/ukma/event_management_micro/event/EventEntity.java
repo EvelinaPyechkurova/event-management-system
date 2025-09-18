@@ -36,9 +36,9 @@ public class EventEntity {
     @Column(nullable = false)
     private int minAgeRestriction;
 
-    @Lob
-    @Column(name = "event_image")
-    private byte[] image;
+//    @Lob
+//    @Column(name = "event_image")
+//    private byte[] image;
 
     @Column
     private Long creatorId;
@@ -55,7 +55,7 @@ public class EventEntity {
         this.description = description;
         this.numberOfTickets = numberOfTickets;
         this.minAgeRestriction = minAgeRestriction;
-        this.image = image;
+//        this.image = image;
         this.price = price;
     }
 }

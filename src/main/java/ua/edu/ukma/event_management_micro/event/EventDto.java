@@ -11,17 +11,16 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class EventDto {
-    private int id;
+    private Long id;
     private String eventTitle;
     private LocalDateTime dateTimeStart;
     private LocalDateTime dateTimeEnd;
     private Long buildingId;
     private String description;
-    private int numberOfTickets;
-    private int minAgeRestriction;
-    private List<Long> rating;
+    private Integer numberOfTickets;
+    private Integer minAgeRestriction;
 //    private List<UserDto> users;
-    private byte[] image;
+//    private byte[] image;
     private Long creatorId;
-    private double price;
+    private Double price;
 }

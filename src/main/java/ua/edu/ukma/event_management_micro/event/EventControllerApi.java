@@ -16,9 +16,6 @@ public class EventControllerApi {
     private ModelMapper modelMapper;
     private EventService eventService;
 
-    @Value("${outer.api.call.url:}")
-    private String outerApiCall;
-
     @Autowired
     public void setModelWrapper(ModelMapper modelMapper){
         this.modelMapper = modelMapper;
@@ -43,14 +40,10 @@ public class EventControllerApi {
         }
     }
 
-    @PostMapping("/")
-    public void createNewEvent(@RequestBody EventDto eventDto){
-        if (eventDto.getDescription().isEmpty()){
-            ResponseEntity<String> response = new RestTemplate()
-                    .getForEntity(outerApiCall, String.class);
-            eventDto.setDescription(response.getBody());
-        }
+    @PostMapping
+    public ResponseEntity<String> createNewEvent(@RequestBody EventDto eventDto){
         eventService.createEvent(eventDto);
+        return ResponseEntity.ok("Event created");
     }
 
     @PutMapping("/{id}")

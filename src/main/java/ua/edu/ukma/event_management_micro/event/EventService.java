@@ -88,7 +88,7 @@ public class EventService {
                 existingEvent.setEventTitle(updatedEvent.getEventTitle());
                 existingEvent.setDateTimeStart(updatedEvent.getDateTimeStart());
                 existingEvent.setDateTimeEnd(updatedEvent.getDateTimeEnd());
-                existingEvent.setImage(updatedEvent.getImage());
+//                existingEvent.setImage(updatedEvent.getImage());
                 existingEvent.setDescription(updatedEvent.getDescription());
                 existingEvent.setNumberOfTickets(updatedEvent.getNumberOfTickets());
                 existingEvent.setMinAgeRestriction(updatedEvent.getMinAgeRestriction());

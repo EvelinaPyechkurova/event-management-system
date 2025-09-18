@@ -52,8 +52,8 @@ public class BuildingControllerApi {
     }
 
     @PostMapping
-    public ResponseEntity<?> createNewBuilding(@ModelAttribute("buildingDto") @Valid BuildingDto buildingDto,
-                                               BindingResult bindingResult, Model model) {
+    public ResponseEntity<?> createNewBuilding(@RequestBody BuildingDto buildingDto,
+                                               BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             Map<String, String> errors = new HashMap<>();
             bindingResult.getFieldErrors().forEach(error ->
@@ -62,21 +62,12 @@ public class BuildingControllerApi {
             return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
 
-        if(buildingDto.getDescription() == null || buildingDto.getDescription().isEmpty()){
-            RestClient client = RestClient.create();
-            String defaultDescription = client.get()
-                    .uri("https://baconipsum.com/api/?type=meat-and-filler&sentences=2&format=text")
-                    .retrieve()
-                    .body(String.class);
-            buildingDto.setDescription(defaultDescription);
-        }
-
         BuildingDto returned = buildingService.createBuilding(buildingDto);
         return new ResponseEntity<>(returned, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateBuilding(@PathVariable long id, @RequestBody @Valid BuildingDto buildingDto,
+    public ResponseEntity<?> updateBuilding(@PathVariable long id, @RequestBody BuildingDto buildingDto,
                                             BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             Map<String, String> errors = new HashMap<>();

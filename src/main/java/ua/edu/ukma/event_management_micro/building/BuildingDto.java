@@ -21,7 +21,6 @@ public class BuildingDto {
     @Pattern(regexp = "^[A-Za-zА-Яа-я0-9 ,.:;-]+|^$", message = "Description contains invalid characters")
     @Size(max = 500, message = "Description must be less than 500 characters long")
     private String description;
-    private List<Long> rating;
 
     public BuildingDto(int id, String address, int hourlyRate, int areaM2, int capacity, String description) {
         this.id = id;
@@ -32,9 +31,4 @@ public class BuildingDto {
         this.description = description;
     }
 
-    public BuildingDto(int id, String address, int hourlyRate, int areaM2,
-                       int capacity, String description, List<Long> rating) {
-        this(id, address, hourlyRate, areaM2, capacity, description);
-        this.rating = rating;
-    }
 }

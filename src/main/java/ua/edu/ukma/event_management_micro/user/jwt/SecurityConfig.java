@@ -49,9 +49,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/register").permitAll()
-                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/**").permitAll()
+
                         .anyRequest().authenticated())
 //				.httpBasic(Customizer.withDefaults())
                 .sessionManagement(session ->
