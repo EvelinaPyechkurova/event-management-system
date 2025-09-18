@@ -25,7 +25,7 @@ public class EventEntity {
     private LocalDateTime dateTimeEnd;
 
     @Column
-    private Long building;
+    private Long buildingId;
 
     @Column(length = 1000)
     private String description;
@@ -41,7 +41,7 @@ public class EventEntity {
     private byte[] image;
 
     @Column
-    private Long creator;
+    private Long creatorId;
 
     @Column(nullable = false)
     private double price;

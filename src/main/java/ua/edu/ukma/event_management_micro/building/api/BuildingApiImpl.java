@@ -1,22 +1,22 @@
 package ua.edu.ukma.event_management_micro.building.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.edu.ukma.event_management_micro.building.BuildingEntity;
 import ua.edu.ukma.event_management_micro.building.BuildingService;
 
-import java.util.Optional;
-
 @Component
-public class BuildingInternalApiImpl implements BuildingInternalApi{
+public class BuildingApiImpl implements BuildingApi {
 
     private final BuildingService buildingService;
 
-    public BuildingInternalApiImpl(BuildingService buildingService) {
+    @Autowired
+    public BuildingApiImpl(BuildingService buildingService) {
         this.buildingService = buildingService;
     }
 
     @Override
-    public BuildingEntity ensureBuildingExists(BuildingEntity building) {
-        return buildingService.ensureBuildingExists(building);
+    public boolean buildingExists(Long buildingId) {
+        return buildingService.buildingExists(buildingId);
     }
 }
