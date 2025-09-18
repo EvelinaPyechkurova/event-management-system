@@ -4,4 +4,5 @@ import ua.edu.ukma.event_management_micro.building.BuildingEntity;
 
 public interface BuildingApi {
     boolean buildingExists(Long buildingId);
+    Integer buildingCapacity(Long buildingId);
 }

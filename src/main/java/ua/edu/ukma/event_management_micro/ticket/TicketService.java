@@ -3,6 +3,8 @@ package ua.edu.ukma.event_management_micro.ticket;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.edu.ukma.event_management_micro.building.api.BuildingApi;
+import ua.edu.ukma.event_management_micro.event.api.EventApi;
 import ua.edu.ukma.event_management_micro.user.api.UserApi;
 
 
@@ -15,13 +17,14 @@ public class TicketService {
 
     private ModelMapper modelMapper;
     private UserApi userInterface;
-//    private EventService eventService;
+    private BuildingApi buildingApi;
+    private EventApi eventApi;
     private TicketRepository ticketRepository;
 
-//    @Autowired
-//    public void setEventService(EventService eventService) {
-//        this.eventService = eventService;
-//    }
+    @Autowired
+    public void setEventApi(EventApi eventApi) {
+        this.eventApi = eventApi;
+    }
 
     @Autowired
     public void setUserInterface(UserApi userInterface) {
@@ -31,6 +34,11 @@ public class TicketService {
     @Autowired
     void setModelMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
+    }
+
+    @Autowired
+    public void setBuildingApi(BuildingApi buildingApi) {
+        this.buildingApi = buildingApi;
     }
 
     @Autowired
@@ -47,6 +55,16 @@ public class TicketService {
 
         //TODO: check if  event exists and isnt full
 
+        Integer amount = ticketRepository.countAllByEvent(ticketEntity.getEvent());
+
+        Integer capacity = eventApi.getEventById(ticketEntity.getEvent())
+                .map(e -> buildingApi.getBuildingById(e.getBuilding()).getCapacity())
+                .orElse(0);
+
+        if (amount >= capacity) {
+            return false;
+        }
+        // compare amount of tickets with event capacity
 
         ticketRepository.save(ticketEntity);
 

@@ -19,4 +19,9 @@ public class BuildingApiImpl implements BuildingApi {
     public boolean buildingExists(Long buildingId) {
         return buildingService.buildingExists(buildingId);
     }
+
+    @Override
+    public Integer buildingCapacity(Long buildingId) {
+        return buildingService.getBuildingById(buildingId).getCapacity();
+    }
 }
