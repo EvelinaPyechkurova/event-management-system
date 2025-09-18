@@ -27,6 +27,7 @@ dependencies {
 	implementation("org.springframework.modulith:spring-modulith-starter-jpa")
 	implementation("com.h2database:h2")
 	implementation("org.modelmapper:modelmapper:3.2.3")
+	implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
