@@ -1,0 +1,20 @@
+package ua.edu.ukma.event_management_micro.event.api;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import ua.edu.ukma.event_management_micro.building.BuildingService;
+import ua.edu.ukma.event_management_micro.event.EventService;
+
+public class EventApiIml implements EventApi {
+
+    private final EventService eventService;
+
+    @Autowired
+    public EventApiIml(EventService eventService) {
+        this.eventService = eventService;
+    }
+
+    @Override
+    public boolean eventExists(Long eventId) {
+        return eventService.eventExists(eventId);
+    }
+}
