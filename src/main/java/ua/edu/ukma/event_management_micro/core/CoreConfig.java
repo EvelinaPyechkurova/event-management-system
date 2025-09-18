@@ -15,4 +15,5 @@ public class CoreConfig {
 
         return mapperResult;
     }
+
 }
