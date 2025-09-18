@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
-                        .requestMatchers("/api/**").hasAuthority(ADMIN)
+                        .requestMatchers("/api/**").permitAll()
                         .anyRequest().authenticated())
 //				.httpBasic(Customizer.withDefaults())
                 .sessionManagement(session ->

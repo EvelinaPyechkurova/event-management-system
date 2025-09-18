@@ -2,6 +2,7 @@ package ua.edu.ukma.event_management_micro.user;
 
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
+import ua.edu.ukma.event_management_micro.core.LogEvent;
 import ua.edu.ukma.event_management_micro.user.jwt.JwtService;
 
 import java.util.Arrays;
@@ -25,6 +27,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     private AuthenticationManager authenticationManager;
     private JwtService jwtService;
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
     void setModelMapper(@Lazy ModelMapper modelMapper) {
@@ -44,6 +47,11 @@ public class UserService {
     }
 
     @Autowired
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
+
+    @Autowired
     public void setJwtService(JwtService jwtService) {
         this.jwtService = jwtService;
     }
@@ -51,10 +59,12 @@ public class UserService {
     public UserDto createUser(UserDto user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         UserDto returned = toDomain(userRepository.save(dtoToEntity(user)));
+        applicationEventPublisher.publishEvent(new LogEvent(this, "New user created: " + returned.getUsername()));
         return returned;
     }
 
     public List<UserDto> getAllUsers() {
+        applicationEventPublisher.publishEvent(new LogEvent(this, "Get all users called"));
         return userRepository.findAll().
                 stream()
                 .map(this::toDomain)

@@ -35,9 +35,7 @@ public class UserControllerApi {
 
     @GetMapping
     public List<UserDto> getUsers() {
-        return userService.getAllUsers()
-                .stream()
-                .toList();
+        return userService.getAllUsers();
     }
 
     @PostMapping

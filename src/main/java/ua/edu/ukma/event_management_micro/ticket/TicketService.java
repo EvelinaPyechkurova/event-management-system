@@ -1,9 +1,12 @@
 package ua.edu.ukma.event_management_micro.ticket;
 
+import org.apache.catalina.core.ApplicationContext;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.event_management_micro.building.api.BuildingApi;
+import ua.edu.ukma.event_management_micro.core.LogEvent;
 import ua.edu.ukma.event_management_micro.event.api.EventApi;
 import ua.edu.ukma.event_management_micro.user.api.UserApi;
 
@@ -20,6 +23,12 @@ public class TicketService {
     private BuildingApi buildingApi;
     private EventApi eventApi;
     private TicketRepository ticketRepository;
+    private ApplicationEventPublisher applicationEventPublisher;
+
+    @Autowired
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
 
     @Autowired
     public void setEventApi(EventApi eventApi) {
@@ -51,7 +60,7 @@ public class TicketService {
 
         if (!(userInterface.validateUserExists(ticketEntity.getOwner()) || eventApi.eventExists(ticket.getEvent()))) {
             return false;
-        };
+        }
 
         Integer amount = ticketRepository.countAllByEvent(ticketEntity.getEvent());
 
@@ -62,6 +71,8 @@ public class TicketService {
         }
 
         ticketRepository.save(ticketEntity);
+
+        applicationEventPublisher.publishEvent(new LogEvent(this, "New ticket created: " + ticketEntity.getId()));
 
         return true;
     }

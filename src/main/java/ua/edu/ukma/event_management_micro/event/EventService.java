@@ -2,8 +2,10 @@ package ua.edu.ukma.event_management_micro.event;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.event_management_micro.building.api.BuildingApi;
+import ua.edu.ukma.event_management_micro.core.LogEvent;
 import ua.edu.ukma.event_management_micro.user.api.UserApi;
 
 import java.time.LocalDateTime;
@@ -18,6 +20,13 @@ public class EventService {
     private final EventRepository eventRepository;
     private final BuildingApi buildingApi;
     private final UserApi userApi;
+    private ApplicationEventPublisher applicationEventPublisher;
+
+    @Autowired
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
+
 
     @Autowired
     public EventService(ModelMapper modelMapper, EventRepository eventRepository, BuildingApi buildingApi, UserApi userApi) {
@@ -60,6 +69,8 @@ public class EventService {
         } else {
             throw new NoSuchElementException("Smt wrong with building or user");
         }
+
+        applicationEventPublisher.publishEvent(new LogEvent(this, "New event created: " + toSave.getEventTitle()));
     }
 
     public void updateEvent(Long id, EventDto updatedEvent) {

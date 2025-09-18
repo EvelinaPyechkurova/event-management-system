@@ -3,8 +3,10 @@ package ua.edu.ukma.event_management_micro.building;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import ua.edu.ukma.event_management_micro.core.LogEvent;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -15,9 +17,16 @@ public class BuildingService {
 
     private ModelMapper modelMapper;
     private BuildingRepository buildingRepository;
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
-    void setModelMapper(@Lazy ModelMapper modelMapper) {
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
+
+
+    @Autowired
+    void setModelMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
@@ -27,7 +36,9 @@ public class BuildingService {
     }
 
     public BuildingDto createBuilding(BuildingDto building) {
-        return toDomain(buildingRepository.save(dtoToEntity(building)));
+        BuildingDto build = toDomain(buildingRepository.save(dtoToEntity(building)));
+        applicationEventPublisher.publishEvent(new LogEvent(this, "Building created: " + build.getId()));
+        return build;
     }
 
     public List<BuildingDto> getAllBuildings() {
