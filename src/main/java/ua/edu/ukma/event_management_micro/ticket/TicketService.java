@@ -2,7 +2,6 @@ package ua.edu.ukma.event_management_micro.ticket;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.event_management_micro.user.api.UserInternalApi;
 
@@ -30,7 +29,7 @@ public class TicketService {
     }
 
     @Autowired
-    void setModelMapper(@Lazy ModelMapper modelMapper) {
+    void setModelMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
@@ -72,17 +71,17 @@ public class TicketService {
 
     public List<TicketDto> getAllTicketsForUser(Long user) {
         return ticketRepository
-                .findAllByUserId(user)
+                .findAllByOwner(user)
                 .stream()
                 .map(a -> modelMapper.map(a, TicketDto.class)).toList();
     }
 
-    public List<TicketDto> getAllTicketsCreatedByUser(long user) {
-        return ticketRepository
-                .findTicketEntitiesByEvent_Creator_Id(user)
-                .stream()
-                .map(a -> modelMapper.map(a, TicketDto.class))
-                .toList();
-    }
+//    public List<TicketDto> getAllTicketsCreatedByUser(long user) {
+//        return ticketRepository
+//                .findTicketEntitiesByEvent_Creator_Id(user)
+//                .stream()
+//                .map(a -> modelMapper.map(a, TicketDto.class))
+//                .toList();
+//    }
 
 }

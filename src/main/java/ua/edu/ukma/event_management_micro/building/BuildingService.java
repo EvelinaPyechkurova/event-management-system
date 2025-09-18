@@ -25,9 +25,9 @@ public class BuildingService {
         this.buildingRepository = buildingRepository;
     }
 
-    public BuildingDto createBuilding(BuildingDto building) {
-        return buildingRepository.save(dtoToEntity(building));
-    }
+//    public BuildingDto createBuilding(BuildingDto building) {
+//        return buildingRepository.save(building).map(this::toDomain).orElse(null);
+//    }
 
 //    public List<Building> getAllBuildings() {
 //        return List.of();
