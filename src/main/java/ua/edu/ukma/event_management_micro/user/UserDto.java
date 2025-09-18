@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 public class UserDto {
-    private long id;
+    private Long id;
     private UserRole userRole;
     private String username;
     private String firstName;
@@ -18,7 +18,7 @@ public class UserDto {
     private String phoneNumber;
     private LocalDate dateOfBirth;
 
-    public UserDto(int id, UserRole userRole, String username, String firstName, String lastName, String email, String phoneNumber, LocalDate dateOfBirth) {
+    public UserDto(Long id, UserRole userRole, String username, String firstName, String lastName, String email, String phoneNumber, LocalDate dateOfBirth) {
         this.id = id;
         this.userRole = userRole;
         this.username = username;
@@ -29,7 +29,7 @@ public class UserDto {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public UserDto(int id, UserRole userRole, String username, String firstName, String lastName, String email, String password, String phoneNumber, LocalDate dateOfBirth) {
+    public UserDto(Long id, UserRole userRole, String username, String firstName, String lastName, String email, String password, String phoneNumber, LocalDate dateOfBirth) {
         this.id = id;
         this.userRole = userRole;
         this.username = username;

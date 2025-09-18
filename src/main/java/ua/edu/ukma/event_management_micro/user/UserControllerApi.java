@@ -1,9 +1,7 @@
 package ua.edu.ukma.event_management_micro.user;
 
-import org.modelmapper.ModelMapper;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/user")
@@ -24,8 +23,14 @@ public class UserControllerApi {
     }
 
     @GetMapping("/{id}")
-    public UserDto getUser(@PathVariable long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<UserDto> getUser(@PathVariable long id) {
+        try {
+            UserDto userDto = userService.getUserById(id);
+            return ResponseEntity.ok(userDto);
+        }
+        catch (Exception e) {
+            return ResponseEntity.noContent().build();
+        }
     }
 
     @GetMapping
