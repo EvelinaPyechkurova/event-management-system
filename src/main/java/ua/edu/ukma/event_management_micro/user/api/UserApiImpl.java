@@ -6,12 +6,12 @@ import ua.edu.ukma.event_management_micro.user.UserService;
 
 
 @Component
-public class UserInternalApiImpl implements UserInternalApi {
+public class UserApiImpl implements UserApi {
 
     private final UserService userService;
 
     @Autowired
-    public UserInternalApiImpl(UserService userService) {
+    public UserApiImpl(UserService userService) {
         this.userService = userService;
     }
 

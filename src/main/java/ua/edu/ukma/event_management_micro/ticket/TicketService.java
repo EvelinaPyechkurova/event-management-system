@@ -3,7 +3,7 @@ package ua.edu.ukma.event_management_micro.ticket;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.edu.ukma.event_management_micro.user.api.UserInternalApi;
+import ua.edu.ukma.event_management_micro.user.api.UserApi;
 
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class TicketService {
 
     private ModelMapper modelMapper;
-    private UserInternalApi userInterface;
+    private UserApi userInterface;
 //    private EventService eventService;
     private TicketRepository ticketRepository;
 
@@ -24,7 +24,7 @@ public class TicketService {
 //    }
 
     @Autowired
-    public void setUserInterface(UserInternalApi userInterface) {
+    public void setUserInterface(UserApi userInterface) {
         this.userInterface = userInterface;
     }
 

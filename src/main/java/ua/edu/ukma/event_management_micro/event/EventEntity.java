@@ -3,7 +3,6 @@ package ua.edu.ukma.event_management_micro.event;
 import jakarta.persistence.*;
 
 import lombok.*;
-import ua.edu.ukma.event_management_micro.user.UserEntity;
 
 import java.time.LocalDateTime;
 
@@ -49,7 +48,7 @@ public class EventEntity {
 
     public EventEntity(String eventTitle, LocalDateTime dateTimeStart, LocalDateTime dateTimeEnd,
                        String description, int numberOfTickets, int minAgeRestriction, byte[] image,
-                       UserEntity creator, double price) {
+                       double price) {
         this.eventTitle = eventTitle;
         this.dateTimeStart = dateTimeStart;
         this.dateTimeEnd = dateTimeEnd;
