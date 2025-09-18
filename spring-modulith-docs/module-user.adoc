@@ -2,4 +2,6 @@
 |===
 |Base package
 |`ua.edu.ukma.event_management_micro.user`
+|Spring components
+|* `u.e.u.e.u.api.UserApi` (via `u.e.u.e.u.api.UserApiImpl`)
 |===

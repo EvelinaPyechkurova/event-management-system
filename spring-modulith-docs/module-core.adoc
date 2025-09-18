@@ -2,4 +2,6 @@
 |===
 |Base package
 |`ua.edu.ukma.event_management_micro.core`
+|Spring components
+|* `u.e.u.e.c.CoreConfig`
 |===

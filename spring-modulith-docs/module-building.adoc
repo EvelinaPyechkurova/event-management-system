@@ -2,4 +2,6 @@
 |===
 |Base package
 |`ua.edu.ukma.event_management_micro.building`
+|Spring components
+|* `u.e.u.e.b.api.BuildingApi` (via `u.e.u.e.b.api.BuildingApiImpl`)
 |===
