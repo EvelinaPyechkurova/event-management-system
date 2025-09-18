@@ -2,9 +2,7 @@ package ua.edu.ukma.event_management_micro.user;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 import lombok.*;
-import ua.edu.ukma.event_management_micro.event.EventEntity;
 
 @Data
 @NoArgsConstructor
@@ -40,8 +38,6 @@ public class UserEntity {
     @Column(nullable = false)
     private LocalDate dateOfBirth;
 
-    @ManyToMany(mappedBy = "users")
-    private List<EventEntity> events;
 
     public UserEntity(UserRole userRole, String username, String firstName, String lastName, String email, String password, String phoneNumber, LocalDate dateOfBirth) {
         this.userRole = userRole;

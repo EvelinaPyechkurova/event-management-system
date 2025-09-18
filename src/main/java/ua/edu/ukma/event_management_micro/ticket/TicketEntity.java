@@ -18,7 +18,7 @@ public class TicketEntity {
     private long id;
 
     @Column
-    private Long user;
+    private Long owner;
 
     @Column
     private Long event;

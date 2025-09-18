@@ -3,11 +3,9 @@ package ua.edu.ukma.event_management_micro.event;
 import jakarta.persistence.*;
 
 import lombok.*;
-import ua.edu.ukma.event_management_micro.building.BuildingEntity;
 import ua.edu.ukma.event_management_micro.user.UserEntity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -27,9 +25,8 @@ public class EventEntity {
     @Column(nullable = false)
     private LocalDateTime dateTimeEnd;
 
-    @ManyToOne
-    @JoinColumn(name = "building_id", nullable = false)
-    private BuildingEntity building;
+    @Column
+    private Long building;
 
     @Column(length = 1000)
     private String description;
@@ -51,12 +48,11 @@ public class EventEntity {
     private double price;
 
     public EventEntity(String eventTitle, LocalDateTime dateTimeStart, LocalDateTime dateTimeEnd,
-                       BuildingEntity building, String description, int numberOfTickets, int minAgeRestriction, byte[] image,
+                       String description, int numberOfTickets, int minAgeRestriction, byte[] image,
                        UserEntity creator, double price) {
         this.eventTitle = eventTitle;
         this.dateTimeStart = dateTimeStart;
         this.dateTimeEnd = dateTimeEnd;
-        this.building = building;
         this.description = description;
         this.numberOfTickets = numberOfTickets;
         this.minAgeRestriction = minAgeRestriction;
