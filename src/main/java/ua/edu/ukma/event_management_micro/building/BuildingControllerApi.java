@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 import jakarta.validation.Valid;
+import ua.edu.ukma.event_management_micro.user.UserDto;
 
 import java.util.*;
 
