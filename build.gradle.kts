@@ -29,11 +29,11 @@ dependencies {
 
 	implementation("com.h2database:h2")
 
-	implementation("io.jsonwebtoken:jjwt-api")
-	runtimeOnly("io.jsonwebtoken:jjwt-impl")
-	runtimeOnly("io.jsonwebtoken:jjwt-jackson")
+	implementation("io.jsonwebtoken:jjwt-api:0.13.0")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.13.0")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.13.0")
 
-	implementation("org.modelmapper:modelmapper")
+	implementation("org.modelmapper:modelmapper:3.2.4")
 
 	implementation("org.hibernate.validator:hibernate-validator")
 

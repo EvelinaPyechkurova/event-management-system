@@ -49,22 +49,17 @@ public class TicketService {
     public boolean createTicket(TicketDto ticket) {
         TicketEntity ticketEntity = modelMapper.map(ticket, TicketEntity.class);
 
-        if (!(userInterface.validateUserExists(ticketEntity.getOwner()) || false)) {
+        if (!(userInterface.validateUserExists(ticketEntity.getOwner()) || eventApi.eventExists(ticket.getEvent()))) {
             return false;
         };
 
-        //TODO: check if  event exists and isnt full
-
         Integer amount = ticketRepository.countAllByEvent(ticketEntity.getEvent());
 
-        Integer capacity = eventApi.getEventById(ticketEntity.getEvent())
-                .map(e -> buildingApi.getBuildingById(e.getBuilding()).getCapacity())
-                .orElse(0);
+        Integer capacity = buildingApi.buildingCapacity(eventApi.getBuildingId(ticketEntity.getEvent()));
 
         if (amount >= capacity) {
             return false;
         }
-        // compare amount of tickets with event capacity
 
         ticketRepository.save(ticketEntity);
 
