@@ -2,9 +2,9 @@ package ua.edu.ukma.event_management_micro.event;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.event_management_micro.building.api.BuildingApi;
+import ua.edu.ukma.event_management_micro.user.api.UserApi;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,12 +17,14 @@ public class EventService {
     private final ModelMapper modelMapper;
     private final EventRepository eventRepository;
     private final BuildingApi buildingApi;
+    private final UserApi userApi;
 
     @Autowired
-    public EventService(ModelMapper modelMapper, EventRepository eventRepository, BuildingApi buildingApi) {
+    public EventService(ModelMapper modelMapper, EventRepository eventRepository, BuildingApi buildingApi, UserApi userApi) {
         this.modelMapper = modelMapper;
         this.eventRepository = eventRepository;
         this.buildingApi = buildingApi;
+        this.userApi = userApi;
     }
 
     public List<EventDto> getAllEvents(){
@@ -46,12 +48,17 @@ public class EventService {
 
     public void createEvent(EventDto event) {
         // Ensures the building with such id exists before saving the event
+        // TODO: write normal validation flow
         EventEntity toSave = toEntity(event);
         Long buildingId = event.getBuildingId();
-        if (buildingId != null && buildingApi.buildingExists(buildingId)) {
+        Long creatorId = event.getCreatorId();
+        if (buildingId != null
+                && creatorId != null
+                && buildingApi.buildingExists(buildingId)
+                && userApi.validateUserExists(creatorId)) {
             eventRepository.save(toSave);
         } else {
-            throw new NoSuchElementException("Building with id " + buildingId + " not found");
+            throw new NoSuchElementException("Smt wrong with building or user");
         }
     }
 
@@ -60,7 +67,12 @@ public class EventService {
 
         if (existingEventOpt.isPresent()) {
             Long buildingId = updatedEvent.getBuildingId();
-            if (buildingId != null && buildingApi.buildingExists(buildingId)) {
+            Long creatorId = updatedEvent.getCreatorId();
+            if (buildingId != null
+                    && creatorId != null
+                    && buildingApi.buildingExists(buildingId)
+                    && userApi.validateUserExists(creatorId)
+            ) {
                 EventEntity existingEvent = existingEventOpt.get();
                 existingEvent.setEventTitle(updatedEvent.getEventTitle());
                 existingEvent.setDateTimeStart(updatedEvent.getDateTimeStart());
@@ -76,6 +88,8 @@ public class EventService {
 
                 eventRepository.save(existingEvent);
             }
+        } else {
+            throw new NoSuchElementException("Smt wrong with building or user");
         }
     }
 
@@ -102,6 +116,10 @@ public class EventService {
                 .stream()
                 .map(this::toDomain)
                 .toList();
+    }
+
+    public boolean eventExists(long eventId) {
+        return eventRepository.existsById(eventId);
     }
 
     private EventDto toDomain(EventEntity event){
