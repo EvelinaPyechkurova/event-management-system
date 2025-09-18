@@ -1,8 +1,10 @@
-package ua.edu.ukma.event_management_micro.user;
+package ua.edu.ukma.event_management_micro.user.jwt;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ua.edu.ukma.event_management_micro.user.UserEntity;
+import ua.edu.ukma.event_management_micro.user.UserRole;
 
 import java.util.ArrayList;
 import java.util.Collection;
