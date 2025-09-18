@@ -1,8 +1,10 @@
-package ua.edu.ukma.event_management_micro.core;
+package ua.edu.ukma.event_management_micro.event;
 
 import jakarta.persistence.*;
 
 import lombok.*;
+import ua.edu.ukma.event_management_micro.building.BuildingEntity;
+import ua.edu.ukma.event_management_micro.user.UserEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,18 +44,11 @@ public class EventEntity {
     @Column(name = "event_image")
     private byte[] image;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity creator;
+    @Column
+    private Long creator;
 
     @Column(nullable = false)
     private double price;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="ticket",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<UserEntity> users;
 
     public EventEntity(String eventTitle, LocalDateTime dateTimeStart, LocalDateTime dateTimeEnd,
                        BuildingEntity building, String description, int numberOfTickets, int minAgeRestriction, byte[] image,
@@ -66,7 +61,6 @@ public class EventEntity {
         this.numberOfTickets = numberOfTickets;
         this.minAgeRestriction = minAgeRestriction;
         this.image = image;
-        this.creator = creator;
         this.price = price;
     }
 }

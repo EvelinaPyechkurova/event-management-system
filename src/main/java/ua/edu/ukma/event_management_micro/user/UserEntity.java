@@ -1,9 +1,10 @@
-package ua.edu.ukma.event_management_micro.core;
+package ua.edu.ukma.event_management_micro.user;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.*;
+import ua.edu.ukma.event_management_micro.event.EventEntity;
 
 @Data
 @NoArgsConstructor

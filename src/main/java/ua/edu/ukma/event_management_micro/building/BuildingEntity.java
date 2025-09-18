@@ -1,9 +1,7 @@
-package ua.edu.ukma.event_management_micro.core;
+package ua.edu.ukma.event_management_micro.building;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -11,8 +9,6 @@ import java.util.List;
 @ToString
 public class BuildingEntity {
     @Id
-    // default strategy, JPA automatically selects the appropriate
-    // generation strategy based on the database used
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
