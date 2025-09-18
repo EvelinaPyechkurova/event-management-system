@@ -9,12 +9,6 @@ public class LogEvent extends ApplicationEvent {
 
     public LogEvent(Object source, String logMessage) {
         super(source);
-        try {
-            Thread.sleep(1000);
-        }
-        catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         this.logMessage = logMessage;
     }
 }

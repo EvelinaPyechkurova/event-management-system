@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @Configuration
 public class CoreConfig {
 
-
     @Primary
     @Bean
     public ModelMapper modelMapper() {
