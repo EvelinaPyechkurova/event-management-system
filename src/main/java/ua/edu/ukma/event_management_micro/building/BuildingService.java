@@ -74,6 +74,11 @@ public class BuildingService {
                 .toList();
     }
 
+    public BuildingEntity ensureBuildingExists(BuildingEntity building) {
+        return buildingRepository.findById(building.getId())
+                .orElseGet(() -> buildingRepository.save(building));
+    }
+
     private BuildingDto toDomain(BuildingEntity building) {
         return modelMapper.map(building, BuildingDto.class);
     }

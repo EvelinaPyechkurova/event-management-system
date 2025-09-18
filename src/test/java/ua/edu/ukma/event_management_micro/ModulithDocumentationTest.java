@@ -8,7 +8,7 @@ class ModulithDocumentationTest {
 
     @Test
     void writeModuleDocumentation() {
-        ApplicationModules modules = ApplicationModules.of(EventManagementMicroApplication.class);
+        ApplicationModules modules = ApplicationModules.of(EventManagementMicroApplication.class).verify();
         new Documenter(modules).writeDocumentation();
     }
 }
