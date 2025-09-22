@@ -8,8 +8,6 @@ COPY ./gradle /app/gradle
 
 WORKDIR /app
 
-RUN chmod +x gradlew
-
-RUN ./gradlew --version
+RUN /bin/bash -c 'chmod +x gradlew; ./gradlew --version'
 
 CMD ["./gradlew", "build"]

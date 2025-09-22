@@ -29,6 +29,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-mail:3.5.5")
 
 	implementation("com.h2database:h2")
+	implementation("org.postgresql:postgresql:42.7.8")
 
 	implementation("io.jsonwebtoken:jjwt-api:0.13.0")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.13.0")
