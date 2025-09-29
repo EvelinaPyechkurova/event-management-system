@@ -11,3 +11,6 @@ WORKDIR /app
 RUN /bin/bash -c 'chmod +x gradlew; ./gradlew --version'
 
 CMD ["./gradlew", "build"]
+
+# docker run -v /d/naukma/4/Spring/event-management-system/build/libs:/app/build/libs spring-build:1.0.0
+# in cmd
