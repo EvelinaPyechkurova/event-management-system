@@ -1,14 +1,15 @@
 FROM openjdk:24-jdk-slim
 
-COPY ./src /app/src
-COPY ./gradlew /app/gradlew
-COPY ./build.gradle.kts /app/build.gradle.kts
-COPY ./settings.gradle.kts /app/settings.gradle.kts
-COPY ./gradle /app/gradle
-
 WORKDIR /app
 
-RUN /bin/bash -c 'chmod +x gradlew; ./gradlew --version'
+COPY gradlew .
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
+COPY gradle gradle
+
+RUN /bin/bash -c 'chmod +x ./gradlew ; ./gradlew --version'
+
+COPY src src
 
 CMD ["./gradlew", "build"]
 
